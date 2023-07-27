@@ -1,14 +1,14 @@
-import SagaFormComponent from "@/components/SagaFormComponent/SagaFormComponent";
+import SagaFormComponent from "@/components/SagaLayoutComponent/SagaLayoutComponent";
 
 const Saga = () => {
   return (
-    <>
-      <h2 className="text-2xl font-semibold mb-4 mt-4">
+    <div className="flex flex-col justify-center items-center">
+      <h2 className="text-2xl text-center font-semibold mb-4 mt-4">
         Taming Forms with Redux Sagas: An Unconventional Dance of Actions and
         Effects
       </h2>
       <SagaFormComponent />
-    </>
+    </div>
   );
 };
 
