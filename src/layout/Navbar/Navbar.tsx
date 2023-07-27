@@ -12,20 +12,12 @@ const Navbar = () => {
         Home
       </NavLink>
       <NavLink
-        to="/users"
+        to="/saga"
         className={({ isActive }) => {
           return isActive ? "text-semibold text-indigo-400" : "";
         }}
       >
-        Users
-      </NavLink>
-      <NavLink
-        to="/posts"
-        className={({ isActive }) => {
-          return isActive ? "text-semibold text-indigo-400" : "";
-        }}
-      >
-        Posts
+        Redux Saga
       </NavLink>
     </div>
   );

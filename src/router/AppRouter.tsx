@@ -1,5 +1,6 @@
 import { HomeModule } from "@/modules/HomeModule/HomeModule";
 import RootModule from "@/modules/RootModule/RootModule";
+import { SagaModule } from "@/modules/SagaModule/SagaModule";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -12,12 +13,8 @@ const router = createBrowserRouter([
         element: <HomeModule />,
       },
       {
-        path: "/users",
-        element: <div>Users</div>,
-      },
-      {
-        path: "/posts",
-        element: <div>Posts</div>,
+        path: "/saga",
+        element: <SagaModule />,
       },
     ],
   },
