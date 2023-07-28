@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react"
 import { FaPencil } from "react-icons/fa6"
 
-import { Category, Product } from "@/types/product"
+import { Product } from "@/types/product"
 import {
   Dialog,
   DialogContent,
@@ -18,45 +17,6 @@ type Props = {
 }
 
 const ProductForm: React.FC<Props> = ({ product }) => {
-  const [title, setTitle] = useState("")
-  const [category, setCategory] = useState(Category.Electronics)
-  const [description, setDescription] = useState("")
-  const [price, setPrice] = useState(0)
-
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const toggleModal = () => setIsModalOpen((prev) => !prev)
-
-  const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setTitle(e.target.value)
-
-  const onCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setCategory(e.target.value as Category)
-
-  const onDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setDescription(e.target.value)
-
-  const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setPrice(Number(e.target.value))
-
-  useEffect(() => {
-    if (!product) return
-    setTitle(product.title)
-    setCategory(product.category)
-    setDescription(product.description)
-    setPrice(product.price)
-  }, [product])
-
-  // const onConfirm = () => {
-  //   const updatedProduct = {
-  //     ...product,
-  //     title,
-  //     category,
-  //     description,
-  //     price,
-  //   };
-  //   console.log(updatedProduct);
-  // };
-
   return (
     <Dialog>
       <DialogTrigger>
@@ -74,9 +34,10 @@ const ProductForm: React.FC<Props> = ({ product }) => {
           <Label htmlFor="title">Title</Label>
           <Input
             id="title"
+            name="title"
             type="text"
-            value={title}
-            onChange={onTitleChange}
+            placeholder="Title"
+            value={product.title}
           />
         </>
       </DialogContent>
