@@ -1,22 +1,54 @@
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
 import { FaPencil } from "react-icons/fa6"
+import * as z from "zod"
 
 import { Product } from "@/types/product"
+import Button from "@/components/shared/Button/Button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/shared/Dialog/Dialog"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/shared/Form/Form"
 import Input from "@/components/shared/Input/Input"
-import Label from "@/components/shared/Label/Label"
 
 type Props = {
   product: Product
 }
 
 const ProductForm: React.FC<Props> = ({ product }) => {
+  const formSchema = z.object({
+    title: z
+      .string()
+      .min(3, {
+        message: "Title must be at least 3 characters long",
+      })
+      .max(30, {
+        message: "Title must be at most 30 characters long",
+      }),
+  })
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: product.title,
+    },
+  })
+
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values)
+  }
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -24,22 +56,26 @@ const ProductForm: React.FC<Props> = ({ product }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
+          <DialogTitle>Edit Product</DialogTitle>
         </DialogHeader>
-        <>
-          <Label htmlFor="title">Title</Label>
-          <Input
-            id="title"
-            name="title"
-            type="text"
-            placeholder="Title"
-            value={product.title}
-          />
-        </>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Title</FormLabel>
+                  <FormControl>
+                    <Input placeholder="title" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit">Submit</Button>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   )
