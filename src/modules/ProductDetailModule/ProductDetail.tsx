@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "@/ducks/products/actions";
 import { getProduct } from "@/ducks/products/selectors";
 import { useEffect } from "react";
+import ProductForm from "@/modules/ProductDetailModule/ProductForm";
+
+import { FaTrash } from "react-icons/fa6";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -16,6 +19,10 @@ const ProductDetail = () => {
 
   return (
     <div className="w-full flex flex-col p-4">
+      <div className="w-full flex items-center justify-end gap-4">
+        <ProductForm product={product} />
+        <FaTrash className="text-lg text-red-600 cursor-pointer" />
+      </div>
       <span className="block text-xs font-semibold tracking-wider">
         {product.category.toUpperCase()}
       </span>
