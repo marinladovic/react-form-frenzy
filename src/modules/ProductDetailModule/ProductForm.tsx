@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { FaPencil } from "react-icons/fa6"
 import * as z from "zod"
 
-import { Product } from "@/types/product"
+import { CategoryEnum, Product } from "@/types/product"
 import Button from "@/components/shared/Button/Button"
 import {
   Dialog,
@@ -21,6 +21,13 @@ import {
   FormMessage,
 } from "@/components/shared/Form/Form"
 import Input from "@/components/shared/Input/Input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/shared/Select/Select"
 
 type Props = {
   product: Product
@@ -36,12 +43,14 @@ const ProductForm: React.FC<Props> = ({ product }) => {
       .max(30, {
         message: "Title must be at most 30 characters long",
       }),
+    category: CategoryEnum,
   })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: product.title,
+      category: product.category,
     },
   })
 
@@ -67,7 +76,29 @@ const ProductForm: React.FC<Props> = ({ product }) => {
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input placeholder="title" {...field} />
+                    <Input placeholder="Title" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="category"
+              render={() => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <FormControl>
+                    <Select>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="light">Light</SelectItem>
+                        <SelectItem value="dark">Dark</SelectItem>
+                        <SelectItem value="system">System</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

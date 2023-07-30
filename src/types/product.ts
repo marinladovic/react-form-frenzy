@@ -1,26 +1,27 @@
-export interface ProductState {
-  products: Product[];
-  product: Product;
-}
+import { Category } from "@/constants/CategoryEnum"
+import { z } from "zod"
 
-export interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: Category;
-  image: string;
-  rating: Rating;
-}
+export const CategoryEnum = z.nativeEnum(Category)
 
-export enum Category {
-  Electronics = "electronics",
-  Jewelery = "jewelery",
-  MenSClothing = "men's clothing",
-  WomenSClothing = "women's clothing",
-}
+export const ratingSchema = z.object({
+  rate: z.number(),
+  count: z.number(),
+})
 
-export interface Rating {
-  rate: number;
-  count: number;
-}
+export const productSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  price: z.number(),
+  description: z.string(),
+  category: CategoryEnum,
+  image: z.string(),
+  rating: ratingSchema,
+})
+
+export const productStateSchema = z.object({
+  products: z.array(productSchema),
+  product: productSchema,
+})
+
+export type Product = z.infer<typeof productSchema>
+export type ProductState = z.infer<typeof productStateSchema>

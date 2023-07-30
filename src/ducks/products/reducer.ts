@@ -1,7 +1,10 @@
-import { Product, Category, ProductState } from "@/types/product";
-import { getType } from "typesafe-actions";
-import { ProductActions, productActions } from "./actions";
-import { produce } from "immer";
+import { Category } from "@/constants/CategoryEnum"
+import { produce } from "immer"
+import { getType } from "typesafe-actions"
+
+import { Product, ProductState } from "@/types/product"
+
+import { ProductActions, productActions } from "./actions"
 
 export const initialState: ProductState = {
   products: [
@@ -30,24 +33,24 @@ export const initialState: ProductState = {
       count: 0,
     },
   },
-};
+}
 
 const productReducer = (state = initialState, action: ProductActions) =>
   produce(state, (draft) => {
     switch (action.type) {
       case getType(productActions.setProducts): {
-        const products: Product[] = action.payload;
-        draft.products = products;
-        return;
+        const products: Product[] = action.payload
+        draft.products = products
+        return
       }
       case getType(productActions.setProduct): {
-        const product: Product = action.payload;
-        draft.product = product;
-        return;
+        const product: Product = action.payload
+        draft.product = product
+        return
       }
       default:
-        return state;
+        return state
     }
-  });
+  })
 
-export default productReducer;
+export default productReducer
