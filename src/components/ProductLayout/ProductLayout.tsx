@@ -9,7 +9,7 @@ import ScrollArea from "@/components/shared/ScrollArea"
 
 import ProductListItem from "../ProductListItem/ProductListItem"
 
-const SagaFormComponent = () => {
+const ProductLayout = () => {
   const dispatch = useDispatch()
   const products = useSelector(getProducts)
 
@@ -31,4 +31,4 @@ const SagaFormComponent = () => {
   )
 }
 
-export default SagaFormComponent
+export default ProductLayout

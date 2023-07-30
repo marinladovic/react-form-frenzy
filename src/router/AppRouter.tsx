@@ -1,8 +1,9 @@
-import { HomeModule } from "@/modules/HomeModule/HomeModule";
-import { ProductDetailModule } from "@/modules/ProductDetailModule/ProductDetailModule";
-import RootModule from "@/modules/RootModule/RootModule";
-import { SagaModule } from "@/modules/SagaModule/SagaModule";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { HomeModule } from "@/modules/HomeModule/HomeModule"
+import { ProductDetailModule } from "@/modules/ProductDetailModule/ProductDetailModule"
+import { ProductModule } from "@/modules/ProductModule/ProductModule"
+import RootModule from "@/modules/RootModule/RootModule"
+import { UsersModule } from "@/modules/UsersModule/UsersModule"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 const router = createBrowserRouter([
   {
@@ -14,8 +15,8 @@ const router = createBrowserRouter([
         element: <HomeModule />,
       },
       {
-        path: "/saga",
-        element: <SagaModule />,
+        path: "/products",
+        element: <ProductModule />,
         children: [
           {
             path: ":id",
@@ -23,12 +24,22 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "/users",
+        element: <UsersModule />,
+        // children: [
+        //   {
+        //     path: ":id",
+        //     element: <ProductDetailModule />,
+        //   },
+        // ],
+      },
     ],
   },
-]);
+])
 
 const AppRouter = () => {
-  return <RouterProvider router={router} />;
-};
+  return <RouterProvider router={router} />
+}
 
-export default AppRouter;
+export default AppRouter

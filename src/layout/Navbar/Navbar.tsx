@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom"
 
 const Navbar = () => {
   return (
@@ -6,21 +6,29 @@ const Navbar = () => {
       <NavLink
         to="/"
         className={({ isActive }) => {
-          return isActive ? "text-semibold text-indigo-400" : "";
+          return isActive ? "text-semibold text-indigo-400" : ""
         }}
       >
         Home
       </NavLink>
       <NavLink
-        to="/saga"
+        to="/products"
         className={({ isActive }) => {
-          return isActive ? "text-semibold text-indigo-400" : "";
+          return isActive ? "text-semibold text-indigo-400" : ""
         }}
       >
-        Redux Saga
+        Products
+      </NavLink>
+      <NavLink
+        to="/users"
+        className={({ isActive }) => {
+          return isActive ? "text-semibold text-indigo-400" : ""
+        }}
+      >
+        Users
       </NavLink>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
