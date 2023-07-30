@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Outlet } from "react-router-dom"
 
 import { Product } from "@/types/product"
-import ScrollArea from "@/components/shared/ScrollArea/ScrollArea"
+import ScrollArea from "@/components/shared/ScrollArea"
 
 import ProductListItem from "../ProductListItem/ProductListItem"
 
