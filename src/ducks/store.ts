@@ -1,27 +1,27 @@
-import { applyMiddleware, combineReducers, createStore, compose } from "redux";
-import productReducer from "./products/reducer";
-import reduxSaga from "redux-saga";
-import rootSaga from "./rootSaga";
+import { api } from "@/ducks/api/api"
+import { configureStore } from "@reduxjs/toolkit"
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
+import reduxSaga from "redux-saga"
 
-const sagaMiddleware = reduxSaga();
-const middleware = [sagaMiddleware];
+import productReducer from "./products/reducer"
+import rootSaga from "./rootSaga"
 
-export const rootReducer = combineReducers({
-  productState: productReducer,
-  //   users: usersReducer,
-});
+const sagaMiddleware = reduxSaga()
 
-export type RootState = ReturnType<typeof rootReducer>;
+const store = configureStore({
+  reducer: {
+    productState: productReducer,
+    [api.reducerPath]: api.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([api.middleware, sagaMiddleware]),
+})
 
-const composeEnhancers =
-  ((window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(...middleware))
-);
-export default store;
+export const useAppDispatch = () => useDispatch<AppDispatch>()
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
-sagaMiddleware.run(rootSaga);
+export default store
+sagaMiddleware.run(rootSaga)
