@@ -3,6 +3,7 @@ import { useGetAllUsersQuery } from "@/ducks/endpoints/users-api"
 import { Outlet } from "react-router-dom"
 
 import ScrollArea from "@/components/shared/ScrollArea"
+import UserListItem from "@/components/UserListItem/UserListItem"
 
 const UsersLayout = () => {
   const { data, isLoading } = useGetAllUsersQuery()
@@ -15,7 +16,7 @@ const UsersLayout = () => {
       <ScrollArea className="w-1/3">
         {users.map((user) => (
           <div key={user.id}>
-            <p>{user.name}</p>
+            <UserListItem user={user} />
           </div>
         ))}
       </ScrollArea>
